@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-// mybatis.org//DTD MApper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nexacro.sample.service.impl.mybatis.NexaBoardMapper">
+
+	<insert id="nexaInsert" parameterType="map">
+		insert into insa(sabun, edit_name, eng_name, edit_id, pwd, phone, hp, reg_no,
+						years, email, job_type, sex, zip, addr1, addr2, join_gbn_code,
+						dept_code, salary, gart_level, put_yn, mil_yn, mil_type,
+						mil_level, mil_startdate, mil_enddate, kosa_reg_yn, kosa_class_code,
+						join_day, retire_day, cmp_reg_no, crm_name, cmp_reg_image, carrier,
+						self_info, profile, pwdc, email1, pos_gbn_code) 
+		
+		
+		
+		values(seq_insa.nextval, #{edit_name,jdbcType=VARCHAR}, #{eng_name,jdbcType=VARCHAR}, #{edit_id,jdbcType=VARCHAR}, 
+					#{pwd,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{hp,jdbcType=VARCHAR}, #{reg_no,jdbcType=VARCHAR},
+					#{years,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{job_type,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+					#{zip,jdbcType=VARCHAR}, #{addr1,jdbcType=VARCHAR}, #{addr2,jdbcType=VARCHAR}, #{join_gbn_code,jdbcType=VARCHAR},
+					#{dept_code,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR}, #{gart_level,jdbcType=VARCHAR},
+					#{put_yn,jdbcType=VARCHAR}, #{mil_yn,jdbcType=VARCHAR}, #{mil_type,jdbcType=VARCHAR}, #{mil_level,jdbcType=VARCHAR}, 
+					#{mil_startdate,jdbcType=VARCHAR}, #{mil_enddate,jdbcType=VARCHAR}, #{kosa_reg_yn,jdbcType=VARCHAR}, 
+					#{kosa_class_code,jdbcType=VARCHAR}, #{join_day,jdbcType=VARCHAR}, #{retire_day,jdbcType=VARCHAR}, #{cmp_reg_no,jdbcType=VARCHAR}, 
+					#{crm_name,jdbcType=VARCHAR}, #{cmp_reg_image,jdbcType=VARCHAR}, #{carrier,jdbcType=VARCHAR},
+					#{self_info,jdbcType=VARCHAR}, #{profile,jdbcType=VARCHAR}, #{pwdc,jdbcType=VARCHAR}, #{email1,jdbcType=VARCHAR}, #{pos_gbn_code,jdbcType=VARCHAR})
+	</insert>
+	
+	<delete id="nexaDelete" parameterType="map">
+		delete from insa
+		where sabun = #{sabun,jdbcType=VARCHAR}
+	</delete>
+	
+	<update id="nexaUpdate" parameterType="com.nexacro.sample.vo.InsaVO">
+		update insa set
+				edit_name = #{edit_name,jdbcType=VARCHAR}, 
+				eng_name = #{eng_name,jdbcType=VARCHAR},
+				edit_id = #{edit_id,jdbcType=VARCHAR},
+				pwd = #{pwd,jdbcType=VARCHAR},
+				phone = #{phone,jdbcType=VARCHAR},
+				hp = #{hp,jdbcType=VARCHAR},
+				reg_no = #{reg_no,jdbcType=VARCHAR},
+				years = #{years,jdbcType=VARCHAR},
+				email = #{email,jdbcType=VARCHAR},
+				job_type = #{job_type,jdbcType=VARCHAR},
+				sex = #{sex,jdbcType=VARCHAR},
+				zip = #{zip,jdbcType=VARCHAR},
+				addr1 = #{addr1,jdbcType=VARCHAR},
+				addr2 = #{addr2,jdbcType=VARCHAR},
+				join_gbn_code = #{join_gbn_code,jdbcType=VARCHAR},
+				dept_code = #{dept_code,jdbcType=VARCHAR},
+				salary = #{salary,jdbcType=VARCHAR},
+				gart_level = #{gart_level,jdbcType=VARCHAR},
+				put_yn = #{put_yn,jdbcType=VARCHAR},
+				mil_yn = #{mil_yn,jdbcType=VARCHAR},
+				mil_type = #{mil_type,jdbcType=VARCHAR},
+				mil_level = #{mil_level,jdbcType=VARCHAR},
+				mil_startdate = #{mil_startdate,jdbcType=VARCHAR},
+				mil_enddate = #{mil_enddate,jdbcType=VARCHAR},
+				kosa_reg_yn = #{kosa_reg_yn,jdbcType=VARCHAR},
+				kosa_class_code = #{kosa_class_code,jdbcType=VARCHAR},
+				join_day = #{join_day,jdbcType=VARCHAR},
+				retire_day = #{retire_day,jdbcType=VARCHAR},
+				cmp_reg_no = #{cmp_reg_no,jdbcType=VARCHAR},
+				crm_name = #{crm_name,jdbcType=VARCHAR},
+				cmp_reg_image = #{cmp_reg_image,jdbcType=VARCHAR},
+				carrier = #{carrier,jdbcType=VARCHAR},
+				self_info = #{self_info,jdbcType=VARCHAR},
+				profile = #{profile,jdbcType=VARCHAR},
+				pwdc = #{pwdc,jdbcType=VARCHAR},
+				email1 = #{email1,jdbcType=VARCHAR},
+				pos_gbn_code = #{pos_gbn_code,jdbcType=VARCHAR}
+		where sabun = #{sabun,jdbcType=VARCHAR}		
+	</update>
+	
+	<select id="nexaSelect" resultType="com.nexacro.sample.vo.InsaVO" parameterType="map">
+		select *
+		from insa
+		where 1=1
+		<if test="sabun != null and sabun !=''">
+			and sabun like '%' || #{sabun} ||'%'
+		</if>
+		<if test="edit_name != null and edit_name !=''">
+			and edit_name like '%' || #{edit_name} || '%'
+		</if>
+		<if test="job_gbn_code != null and job_gbn_code !=''">
+			and job_gbn_code like '%' || #{job_gbn_code} || '%'
+		</if>
+		<if test="put_yn != null and put_yn !=''" >
+			and put_yn like '%' || #{put_yn} || '%'
+		</if>
+		<if test="pos_gbn_code != null and pos_gbn_code !=''">
+			and pos_gbn_code like '%' || #{pos_gbn_code} || '%'
+		</if>
+		<if test="join_day != null and join_day !=''">
+			and join_day like '%' || #{join_day} || '%'
+		</if>
+		<if test="retire_day != null and retire_day !=''">
+			and retire_day like '%' || #{retire_day} || '%'
+		</if>
+		<if test="job_type != null and job_type !=''">
+			and job_type like '%' || #{job_type}
+		</if>
+		order by sabun desc
+	</select>
+	
+	<select id="nexaSabun" resultType="com.nexacro.sample.vo.InsaVO" parameterType="map">
+		select *
+		from insa
+		where sabun = #{sabun_ds}
+	</select>
+	
+	<select id="nexaCombo" resultType="com.nexacro.sample.vo.InsaComVO">
+		select *
+		from insa_com
+	</select>
+</mapper>
